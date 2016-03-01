@@ -1,3 +1,10 @@
+/************************************************************
+Copyright:  wust
+Author: sean
+Date:  2016-03-01
+Description:  datastruct (AVL tree)
+**************************************************************/
+
 #include <iostream>
 using namespace std;
 
