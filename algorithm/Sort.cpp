@@ -121,10 +121,10 @@ T * Sort<T>::shellsort(T * SL, int size)
 {
 	for (int gap = size / 2; gap > 0; gap /= 2) {
 		for (int i = gap; i < size; i++) {
-			for (int j = i - gap; j >= 0 && SL[j]>SL[i]; j -= gap) {
+			for (int j = i - gap; j >= 0 && SL[j]>SL[j+gap]; j -= gap) {
 				T tmp = SL[j];
-				SL[j] = SL[i];
-				SL[i] = tmp;
+				SL[j] = SL[j+gap];
+				SL[j+gap] = tmp;
 			}
 		}
 	}
@@ -134,7 +134,7 @@ T * Sort<T>::shellsort(T * SL, int size)
 
 
 int main() {
-	int s[] = { 1,3,5,7,9,2,4,6,8 };
+	int s[] = { 1,3,5,7,9,2,4,6,8,0 };
 	//Sort<int>::quicksort(s, 0, sizeof(s)/sizeof(int)-1);
 	//Sort<int>::bubblesort(s, sizeof(s) / sizeof(int));
 	//Sort<int>::selectsort(s, sizeof(s) / sizeof(int));

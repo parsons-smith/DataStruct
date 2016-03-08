@@ -31,6 +31,8 @@ public:
     bool isEmpty() const;
     void makeEmpty();
     bool getSize(int &size);
+    void inverse();
+    void sort();
 private:
     Node<DataType> *start;
     Node<DataType> *current;
@@ -219,12 +221,44 @@ bool List<DataType>::getSize( int &size)
 }
 
 
+template <class DataType>
+void List<DataType>::inverse()
+{
+    current = NULL;
+    Node<DataType> *p1 = NULL, *p2 = NULL;
+    while(start != NULL)
+    {
+        p2 = start->next;
+        start->next = p1;
+        p1 = start;
+        start = p2;
+    }
+    start =  p1;
+}
+
+template <class DataType>
+void List<DataType>::sort()
+{
+    Node<DataType> *p = NULL;
+    for(current = start; current != NULL; current = current->next){
+        for(p = current->next; p != NULL; p = p->next){
+            if(current->info > p->info){
+                p->info = p->info + current->info;
+                current->info = p->info - current->info;
+                p->info = p->info - current->info;
+            }
+        }
+    }
+    current = NULL;
+}
+
 int main(){
     List<int> l;
     for(int i = 0; i< 10; i++){
         l.insert(i);
     }
     int x;
+    cout<<"traversal"<<endl;
     l.first(x);
     cout<< x << "   ";
     for(;l.getNext(x);){
@@ -233,6 +267,27 @@ int main(){
     l.getSize(x);
     cout<<endl<<x<<endl;
 
+    cout<<"sort"<<endl;
+    l.sort();
+    l.first(x);
+    cout<< x << "   ";
+    for(;l.getNext(x);){
+        cout<< x << "   ";
+    }
+    l.getSize(x);
+    cout<<endl<<x<<endl;
+
+    cout<<"inverse"<<endl;
+    l.inverse();
+    l.first(x);
+    cout<< x << "   ";
+    for(;l.getNext(x);){
+        cout<< x << "   ";
+    }
+    l.getSize(x);
+    cout<<endl<<x<<endl;
+
+    cout<<"delete"<<endl;
     l.first(x);
     l.getNext(x);
     l.getNext(x);
