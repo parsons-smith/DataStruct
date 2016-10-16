@@ -121,6 +121,26 @@ private:
 		}
 	}
 
+	void preorder(node<T> *parent)
+	{
+		stack<node<T>*> s;
+		while(!s.empty() || parent)
+		{
+			while(parent)
+			{
+				cout << parent->data << " ";
+				s.push(parent);
+				parent = parent->left;
+			}
+			if(!s.empty())
+			{
+				parent = s.top();
+				s.pop();
+				parent = parent->right;
+			}
+		}
+	}
+
 	void Inorder(node<T> *parent)
 	{
 		if (parent != NULL)
@@ -128,6 +148,26 @@ private:
 			Inorder(parent->left);
 			cout << parent->data << " ";
 			Inorder(parent->right);
+		}
+	}
+
+	void inorder(node<T> *parent)
+	{
+		stack<node<T>*> s;
+		while(parent || !s.empty())
+		{
+			while(parent)
+			{
+				s.push(parent);
+				parent = parent->left;
+			}
+			if(!s.empty())
+			{
+				parent = s.top();
+				s.pop();
+				cout << parent->data << " ";
+				parent = parent->right;
+			}
 		}
 	}
 
@@ -140,6 +180,31 @@ private:
 			cout << parent->data << " ";
 		}
 	}
+
+	void postorder(node<T> *parent)
+	{
+		stack<node<T>*> s;
+		node<T>*cur;
+		node<T>*pre = nullptr;
+		s.push(parent);
+		while(!s.empty())
+		{
+			cur = s.top();
+			if((!cur->left&&!cur->right)||(pre&&(cur->left==pre || cur->right==pre)))
+			{
+				cout << cur->data << " ";
+				s.pop();
+				pre = cur;
+			}else
+			{
+				if (cur->right)
+					s.push(cur->right);
+				if (cur->left)
+					s.push(cur->left);
+			}
+		}
+	}
+	
 public:
 	Bintree() {
 		root = NULL;
